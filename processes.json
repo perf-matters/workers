@@ -1,0 +1,12 @@
+{
+  "apps" : [
+    {
+      "name"      : "getHARWorker",
+      "script"    : "workers/getSitePerformanceData.js"
+    },
+    {
+      "name"      : "hookWorker",
+      "script"    : "workers/sendSitePerformanceData.js"
+    }
+  ]
+}

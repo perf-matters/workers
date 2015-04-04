@@ -1,0 +1,6 @@
+{
+    "url": "amqp://localhost:5672",
+    "getHARconcurencyLimit": 10,
+    "getQueueName": "/GET-HAR-queue",
+    "sendQueueName": "/SEND-HAR-queue"
+}

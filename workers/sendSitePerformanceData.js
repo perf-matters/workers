@@ -28,6 +28,11 @@ function sendHARData (buffer) {
     };
 
     var req = http.request(options);
+
+    req.on('error', function(e) {
+        req.abort();
+    });
+
     req.write(JSON.stringify(message));
     req.end();
     channel.ack(buffer);

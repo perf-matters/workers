@@ -15,6 +15,7 @@ npm i
 ## Run service workers
 
 ```
+npm run backgrounds
 npm run workers
 ```
 

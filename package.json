@@ -18,6 +18,7 @@
   "dependencies": {
     "amqplib": "^0.3.2",
     "browsermob-proxy-api": "^0.1.4",
+    "har-validator": "^1.6.1",
     "q": "^1.2.0",
     "webdriver-manager": "^3.0.0",
     "webdriverio": "^2.4.5"

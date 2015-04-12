@@ -1,5 +1,6 @@
 var webdriverDecorator = require('../lib/webdriverDecorator');
 var amqpUtils = require('../commons/amqpUtils');
+var validate = require('har-validator');
 
 var driver = require('../lib/driver');
 
@@ -30,14 +31,24 @@ function getHARData (buffer) {
             .waitForLoadEvent()
             .getPerformanceMetrics(function (err, data) {
                 message.timing.performanceMetricsDone = new Date().getTime();
-                channel.sendToQueue(
-                    buffer.properties.replyTo,
-                    amqpUtils.jsonToBuffer({
-                        request: message,
-                        HAR: data
-                    })
-                );
-                limiter--;
+                var results = {
+                    request: message,
+                    HAR: data,
+                    HARerrors: null
+                };
+
+                validate(data, function (e, valid) {
+                    if (e) {
+                        results.HARerrors = e.errors;
+                    }
+
+                    channel.sendToQueue(
+                        buffer.properties.replyTo,
+                        amqpUtils.jsonToBuffer(results)
+                    );
+                    limiter--;
+                    console.log([e, valid]);
+                });
             })
             .end();
     });

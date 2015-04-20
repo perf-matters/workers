@@ -26,9 +26,12 @@ function getHARData (buffer) {
     driver.startProxy(message.connectionType).then(function (config) {
         webdriverDecorator(config.browser, config.proxy)
             .init()
+            .deleteCookie()
             .startHAR(message.serviceUrl)
             .url(message.serviceUrl)
+            .startFilmstrip('test')
             .waitForLoadEvent()
+            .stopFilmstrip('test')
             .getPerformanceMetrics(function (err, data) {
                 message.timing.performanceMetricsDone = new Date().getTime();
                 var results = {

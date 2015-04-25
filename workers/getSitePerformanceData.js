@@ -53,4 +53,3 @@ function getHARData (buffer) {
             .end();
     });
 }
-
